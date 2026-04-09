@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Form submission feedback
     const contactForm = document.getElementById('contact-form');
     if (contactForm) {
-        contactForm.addEventListener('submit', (e) => {
+        contactForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = contactForm.querySelector('button');
             const originalText = btn.textContent;
@@ -32,44 +32,45 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.innerHTML = 'Sending... <i data-lucide="loader" class="spin"></i>';
             lucide.createIcons();
             
-            // Send form data using Formsubmit AJAX
-            fetch("https://formsubmit.co/ajax/nkansahgodlove1988@gmail.com", {
-                method: "POST",
-                headers: { 
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                body: JSON.stringify({
-                    name: contactForm.querySelector('input[name="name"]').value,
-                    email: contactForm.querySelector('input[name="email"]').value,
-                    message: contactForm.querySelector('textarea[name="message"]').value,
-                    _subject: contactForm.querySelector('input[name="_subject"]').value
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                btn.innerHTML = 'Message Sent! <i data-lucide="check-circle"></i>';
-                btn.style.background = '#22c55e';
-                lucide.createIcons();
-                contactForm.reset();
+            try {
+                // Send form data using Formsubmit AJAX
+                const response = await fetch("https://formsubmit.co/ajax/nkansahgodlove1988@gmail.com", {
+                    method: "POST",
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        name: contactForm.querySelector('input[name="name"]').value,
+                        email: contactForm.querySelector('input[name="email"]').value,
+                        message: contactForm.querySelector('textarea[name="message"]').value,
+                        _subject: contactForm.querySelector('input[name="_subject"]').value
+                    })
+                });
                 
-                setTimeout(() => {
-                    btn.innerHTML = originalText;
-                    btn.style.background = '';
-                    lucide.createIcons();
-                }, 3000);
-            })
-            .catch(error => {
-                btn.innerHTML = 'Error Sending <i data-lucide="x-circle"></i>';
-                btn.style.background = '#ef4444';
-                lucide.createIcons();
+                const data = await response.json();
                 
-                setTimeout(() => {
-                    btn.innerHTML = originalText;
-                    btn.style.background = '';
+                if (data.success === "true" || data.success === true) {
+                    btn.innerHTML = 'Message Sent! <i data-lucide="check-circle"></i>';
+                    btn.style.background = '#22c55e';
                     lucide.createIcons();
-                }, 3000);
-            });
+                    contactForm.reset();
+                    
+                    setTimeout(() => {
+                        btn.innerHTML = originalText;
+                        btn.style.background = '';
+                        lucide.createIcons();
+                    }, 3000);
+                } else {
+                    // FormSubmit requires manual verification/captcha for the first time.
+                    // Fallback to native form submission to allow Captcha.
+                    btn.innerHTML = 'Re-routing securely...';
+                    contactForm.submit(); 
+                }
+            } catch (error) {
+                // Any network errors, fallback to native submission
+                contactForm.submit();
+            }
         });
     }
 
