@@ -1,0 +1,100 @@
+/* --- CONTACT SECTION FIX --- */
+#contact {
+    padding: 100px 0;
+}
+
+.contact-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    align-items: flex-start;
+}
+
+.contact-form-container {
+    flex: 1.5;
+    min-width: 300px;
+}
+
+.contact-methods {
+    flex: 1;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Ensure the link behaves like a container */
+a.contact-method-card {
+    display: flex !important;
+    align-items: center;
+    gap: 20px;
+    padding: 25px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    text-decoration: none;
+    color: white;
+    transition: var(--transition);
+    width: 100%;
+}
+
+a.contact-method-card:hover {
+    border-color: var(--primary);
+    transform: translateX(10px);
+    background: rgba(0, 210, 255, 0.05);
+}
+
+.contact-method-card i {
+    color: var(--primary);
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+}
+
+.contact-method-card h4 {
+    margin-bottom: 5px;
+    font-size: 1.1rem;
+}
+
+.contact-method-card p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.whatsapp-card:hover {
+    border-color: #25D366 !important;
+}
+
+/* Form Styles Refresh */
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-group input, 
+.form-group textarea {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-color);
+    padding: 18px;
+    border-radius: 10px;
+    color: white;
+    font-family: inherit;
+    font-size: 1rem;
+}
+
+.form-group input:focus, 
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+@media (max-width: 768px) {
+    .contact-grid {
+        flex-direction: column;
+    }
+    .contact-form-container, .contact-methods {
+        width: 100%;
+        flex: none;
+    }
+}
