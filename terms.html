@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms & Conditions | Godlove Nkansah</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .terms-page { padding: 120px 0 60px 0; min-height: 100vh; }
+        .terms-card { max-width: 850px; margin: 0 auto; padding: 50px !important; }
+        .back-link { 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 8px; 
+            color: var(--primary); 
+            text-decoration: none; 
+            margin-bottom: 30px;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        .back-link:hover { transform: translateX(-5px); }
+        .terms-list { margin-top: 30px; }
+        .term-item { margin-bottom: 30px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 20px; }
+        .term-item:last-child { border: none; }
+        .term-item span { display: block; font-size: 1.2rem; font-weight: 700; color: #fff; margin-bottom: 8px; }
+        .term-item p { color: var(--text-muted); font-size: 0.95rem; }
+        .terms-header { margin-bottom: 40px; border-bottom: 2px solid var(--primary); padding-bottom: 20px; }
+        .terms-header h1 { font-size: 2.2rem; }
+        .terms-footer { margin-top: 50px; text-align: center; border-top: 1px solid var(--border-color); padding-top: 30px; }
+        .contact-info { margin-bottom: 30px; color: var(--primary); font-weight: 600; }
+        
+        /* Robust PDF Template Styles - Moved Off-Screen but kept 'Visible' for Capture */
+        #pdf-template {
+            position: absolute;
+            left: -9999px;
+            top: 0;
+            width: 800px;
+            padding: 50px;
+            background: #ffffff;
+            color: #000000;
+            font-family: 'Inter', Arial, sans-serif;
+            line-height: 1.6;
+            z-index: -100;
+        }
+        #pdf-template h1 { font-size: 28pt; border-bottom: 3pt solid #000; padding-bottom: 10pt; margin-bottom: 25pt; color: #000; }
+        #pdf-template h3 { font-size: 14pt; margin-bottom: 20pt; color: #333; }
+        #pdf-template .item { margin-bottom: 20pt; }
+        #pdf-template .item b { font-size: 12pt; display: block; margin-bottom: 5pt; color: #000; }
+        #pdf-template .item p { font-size: 11pt; color: #333; margin: 0; }
+        #pdf-template .footer { margin-top: 40pt; padding-top: 20pt; border-top: 1pt solid #ccc; font-size: 11pt; text-align: center; }
+        
+        @media print {
+            .nav-container, .back-link, .btn-primary, .footer { display: none !important; }
+            .terms-card { border: none; background: white; color: black; box-shadow: none; padding: 0 !important; }
+            .term-item span { color: black; }
+            .term-item p { color: #333; }
+            .terms-header h1 { color: black; border-color: black; }
+        }
+
+        @media (max-width: 768px) {
+            .terms-page { padding: 80px 0 40px 0; }
+            .terms-card { padding: 25px !important; }
+            .terms-header h1 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav id="main-nav">
+        <div class="container nav-container">
+            <div class="logo">Port<span>folio</span></div>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-btn">Back to Home</a></li>
+            </ul>
+            <button class="mobile-toggle" id="mobile-toggle">
+                <i data-lucide="menu"></i>
+            </button>
+        </div>
+    </nav>
+
+    <div class="terms-page">
+        <div class="container">
+            <a href="index.html" class="back-link">
+                <i data-lucide="arrow-left"></i> Back to Home
+            </a>
+            
+            <div class="glass-card terms-card">
+                <div class="terms-header">
+                    <h1>TERMS & CONDITIONS</h1>
+                    <p class="terms-intro">Effective Date: April 2024 | Provider: Godlove Nkansah</p>
+                </div>
+
+                <p style="color: var(--text-muted); margin-bottom: 30px; font-style: italic;">
+                    These terms apply to all services provided by Godlove Nkansah (Web Developer, App Developer, and Cybersecurity Personnel).
+                </p>
+
+                <div class="terms-list">
+                    <div class="term-item">
+                        <span>1. Project Agreement</span>
+                        <p>All projects will be discussed and agreed upon before work begins. The scope, features, and timeline must be clearly defined.</p>
+                    </div>
+                    <div class="term-item">
+                        <span>2. Payment Terms</span>
+                        <p>A 50% upfront payment is required before any work starts. The remaining 50% must be paid after project completion and before final delivery or deployment.</p>
+                    </div>
+                    <div class="term-item">
+                        <span>3. Revisions</span>
+                        <p>Reasonable revisions are allowed during development. Major changes outside the agreed project scope may require additional charges.</p>
+                    </div>
+                    <div class="term-item">
+                        <span>4. Maintenance & Support</span>
+                        <p>Maintenance services are not included unless agreed. Any updates, fixes, or changes after delivery will be charged separately.</p>
+                    </div>
+                    <div class="term-item">
+                        <span>5. Project Delivery</span>
+                        <p>The project will be delivered after full payment is completed. Delays caused by the client (late feedback, missing content) may affect the timeline.</p>
+                    </div>
+                    <div class="term-item">
+                        <span>6. Cancellation Policy</span>
+                        <p>If a project is cancelled after work has started, the initial 50% payment is non-refundable.</p>
+                    </div>
+                    <div class="term-item">
+                        <span>7. Client Responsibilities</span>
+                        <p>The client must: Provide all required content (text, images, data), give timely feedback, and communicate clearly during the project.</p>
+                    </div>
+                    <div class="term-item">
+                        <span>8. Ownership</span>
+                        <p>After full payment, the client owns the final product. Godlove Nkansah reserves the right to showcase the project in his portfolio.</p>
+                    </div>
+                    <div class="term-item">
+                        <span>9. Security & Responsibility</span>
+                        <p>Basic security practices will be implemented. However, full system security depends on hosting, updates, and user management.</p>
+                    </div>
+                    <div class="term-item">
+                        <span>10. Agreement</span>
+                        <p>By starting a project or making payment, the client agrees to these terms and conditions.</p>
+                    </div>
+                </div>
+
+                <div class="terms-footer">
+                    <p class="contact-info">📞 WhatsApp: 0539198895 | 📧 Email: nkansahgodlove1988@gmail.com</p>
+                    <button onclick="downloadAsPDF()" class="btn btn-primary">Download Terms as PDF</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- HIDDEN PDF TEMPLATE (Guaranteed Rendering) -->
+    <div id="pdf-template">
+        <h1>TERMS & CONDITIONS</h1>
+        <h3>Effective Date: April 2024 | Provider: Godlove Nkansah</h3>
+        <p>This document applies to all services provided by Godlove Nkansah.</p>
+        
+        <div class="item"><b>1. Project Agreement</b><p>All projects will be discussed and agreed upon before work begins. The scope, features, and timeline must be clearly defined.</p></div>
+        <div class="item"><b>2. Payment Terms</b><p>A 50% upfront payment is required before any work starts. The remaining 50% must be paid after completion.</p></div>
+        <div class="item"><b>3. Revisions</b><p>Reasonable revisions are allowed during development. Major changes may require additional charges.</p></div>
+        <div class="item"><b>4. Maintenance & Support</b><p>Maintenance services are not included unless agreed. Changes after delivery will be charged separately.</p></div>
+        <div class="item"><b>5. Project Delivery</b><p>The project will be delivered after full payment. Delays by the client may affect the timeline.</p></div>
+        <div class="item"><b>6. Cancellation Policy</b><p>If a project is cancelled after work has started, the initial 50% payment is non-refundable.</p></div>
+        <div class="item"><b>7. Client Responsibilities</b><p>The client must provide required content, give timely feedback, and communicate clearly.</p></div>
+        <div class="item"><b>8. Ownership</b><p>After full payment, the client owns the final product. I reserve the right to showcase it in my portfolio.</p></div>
+        <div class="item"><b>9. Security & Responsibility</b><p>Basic security will be implemented. Full security depends on hosting, updates, and user management.</p></div>
+        <div class="item"><b>10. Agreement</b><p>By starting a project or making payment, the client agrees to these terms and conditions.</p></div>
+
+        <div class="footer">
+            <p>📞 WhatsApp: 0539198895 | 📧 Email: nkansahgodlove1988@gmail.com</p>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container text-center">
+            <p>&copy; 2024 Godlove Nkansah. Official Terms of Service.</p>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        function downloadAsPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            // PDF Styling
+            const title = "TERMS & CONDITIONS - GODLOVE NKANSAH";
+            const date = "Effective Date: April 2024";
+            const intro = "These terms apply to all services provided by Godlove Nkansah (Web Developer, App Developer, and Cybersecurity Personnel).";
+            
+            doc.setFont("helvetica", "bold");
+            doc.setFontSize(18);
+            doc.text(title, 20, 20);
+            
+            doc.setFontSize(10);
+            doc.setFont("helvetica", "italic");
+            doc.text(date, 20, 28);
+            
+            doc.setFont("helvetica", "normal");
+            doc.setFontSize(11);
+            const introLines = doc.splitTextToSize(intro, 170);
+            doc.text(introLines, 20, 36);
+
+            const items = [
+                { t: "1. Project Agreement", p: "All projects will be discussed and agreed upon before work begins. The scope, features, and timeline must be clearly defined." },
+                { t: "2. Payment Terms", p: "A 50% upfront payment is required before any work starts. The remaining 50% must be paid after project completion." },
+                { t: "3. Revisions", p: "Reasonable revisions are allowed during development. Major changes outside the agreed project scope may require additional charges." },
+                { t: "4. Maintenance & Support", p: "Maintenance services are not included unless agreed. Any updates, fixes, or changes after delivery will be charged separately." },
+                { t: "5. Project Delivery", p: "The project will be delivered after full payment is completed. Delays caused by the client may affect the timeline." },
+                { t: "6. Cancellation Policy", p: "If a project is cancelled after work has started, the initial 50% payment is non-refundable." },
+                { t: "7. Client Responsibilities", p: "The client must: Provide all required content, give timely feedback, and communicate clearly during the project." },
+                { t: "8. Ownership", p: "After full payment, the client owns the final product. Godlove Nkansah reserves the right to showcase the project in his portfolio." },
+                { t: "9. Security & Responsibility", p: "Basic security practices will be implemented. However, full system security depends on hosting, updates, and user management." },
+                { t: "10. Agreement", p: "By starting a project or making payment, the client agrees to these terms and conditions." }
+            ];
+
+            let y = 50;
+            items.forEach((item, index) => {
+                if (index > 4 && y > 150 && index < 6) { doc.addPage(); y = 20; } // New page if needed
+                
+                doc.setFont("helvetica", "bold");
+                doc.text(item.t, 20, y);
+                y += 6;
+                doc.setFont("helvetica", "normal");
+                const pLines = doc.splitTextToSize(item.p, 170);
+                doc.text(pLines, 20, y);
+                y += (pLines.length * 6) + 4;
+            });
+
+            // Footer
+            y += 10;
+            doc.setDrawColor(200, 200, 200);
+            doc.line(20, y, 190, y);
+            y += 10;
+            doc.setFontSize(10);
+            doc.text("WhatsApp: 0539198895 | Email: nkansahgodlove1988@gmail.com", 105, y, { align: "center" });
+
+            doc.save("Terms_Godlove_Nkansah.pdf");
+        }
+    </script>
+</body>
+</html>
