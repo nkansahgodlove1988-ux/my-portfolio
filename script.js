@@ -32,8 +32,22 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.innerHTML = 'Sending... <i data-lucide="loader" class="spin"></i>';
             lucide.createIcons();
             
-            // Simulate sending
-            setTimeout(() => {
+            // Send form data using Formsubmit AJAX
+            fetch("https://formsubmit.co/ajax/nkansahgodlove1988@gmail.com", {
+                method: "POST",
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: contactForm.querySelector('input[name="name"]').value,
+                    email: contactForm.querySelector('input[name="email"]').value,
+                    message: contactForm.querySelector('textarea[name="message"]').value,
+                    _subject: contactForm.querySelector('input[name="_subject"]').value
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
                 btn.innerHTML = 'Message Sent! <i data-lucide="check-circle"></i>';
                 btn.style.background = '#22c55e';
                 lucide.createIcons();
@@ -44,7 +58,18 @@ document.addEventListener('DOMContentLoaded', () => {
                     btn.style.background = '';
                     lucide.createIcons();
                 }, 3000);
-            }, 1500);
+            })
+            .catch(error => {
+                btn.innerHTML = 'Error Sending <i data-lucide="x-circle"></i>';
+                btn.style.background = '#ef4444';
+                lucide.createIcons();
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.style.background = '';
+                    lucide.createIcons();
+                }, 3000);
+            });
         });
     }
 
