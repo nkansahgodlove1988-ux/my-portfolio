@@ -33,24 +33,25 @@ document.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons();
             
             try {
-                // Send form data using Formsubmit AJAX
-                const response = await fetch("https://formsubmit.co/ajax/nkansahgodlove1988@gmail.com", {
+                // Send form data using Web3Forms AJAX
+                const response = await fetch("https://api.web3forms.com/submit", {
                     method: "POST",
                     headers: { 
                         'Content-Type': 'application/json',
                         'Accept': 'application/json'
                     },
                     body: JSON.stringify({
+                        access_key: "7afde6ef-66e1-4d95-b5c1-539fa7195196",
                         name: contactForm.querySelector('input[name="name"]').value,
                         email: contactForm.querySelector('input[name="email"]').value,
                         message: contactForm.querySelector('textarea[name="message"]').value,
-                        _subject: contactForm.querySelector('input[name="_subject"]').value
+                        subject: contactForm.querySelector('input[name="_subject"]').value
                     })
                 });
                 
                 const data = await response.json();
                 
-                if (data.success === "true" || data.success === true) {
+                if (response.status === 200) {
                     btn.innerHTML = 'Message Sent! <i data-lucide="check-circle"></i>';
                     btn.style.background = '#22c55e';
                     lucide.createIcons();
@@ -62,14 +63,28 @@ document.addEventListener('DOMContentLoaded', () => {
                         lucide.createIcons();
                     }, 3000);
                 } else {
-                    // FormSubmit requires manual verification/captcha for the first time.
-                    // Fallback to native form submission to allow Captcha.
-                    btn.innerHTML = 'Re-routing securely...';
-                    contactForm.submit(); 
+                    // Show error state
+                    btn.innerHTML = 'Failed to Send <i data-lucide="x-circle"></i>';
+                    btn.style.background = '#ef4444';
+                    lucide.createIcons();
+                    
+                    setTimeout(() => {
+                        btn.innerHTML = originalText;
+                        btn.style.background = '';
+                        lucide.createIcons();
+                    }, 3000);
                 }
             } catch (error) {
-                // Any network errors, fallback to native submission
-                contactForm.submit();
+                // Notice network errors
+                btn.innerHTML = 'Network Error <i data-lucide="x-circle"></i>';
+                btn.style.background = '#ef4444';
+                lucide.createIcons();
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.style.background = '';
+                    lucide.createIcons();
+                }, 3000);
             }
         });
     }
