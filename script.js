@@ -4,28 +4,42 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /* Cinematic Intro Scroll */
     let isAutoScrolling = false;
+    let resumeTimeout;
+    const scrollSpeed = 0.8; // Slightly faster but still cinematic
+
     function startCinematicScroll() {
         const contactSection = document.getElementById('contact');
         if (!contactSection) return;
+        if (isAutoScrolling) return;
+
         isAutoScrolling = true;
-        const scrollSpeed = 0.5; // Very slow and cinematic
         function scrollStep() {
             if (!isAutoScrolling) return;
             window.scrollBy(0, scrollSpeed);
             const contactTop = contactSection.getBoundingClientRect().top;
-            if (contactTop <= 100 || (window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-                stopCinematicScroll();
+            if (contactTop <= 100 || (window.innerHeight + window.scrollY) >= document.body.offsetHeight - 2) {
+                stopCinematicScroll(true); // Permanent stop if reached bottom
             } else {
                 requestAnimationFrame(scrollStep);
             }
         }
         requestAnimationFrame(scrollStep);
     }
-    function stopCinematicScroll() { isAutoScrolling = false; }
+
+    function stopCinematicScroll(permanent = false) {
+        isAutoScrolling = false;
+        clearTimeout(resumeTimeout);
+        if (!permanent) {
+            resumeTimeout = setTimeout(startCinematicScroll, 6000); // Resume after 6s of silence
+        }
+    }
+
     setTimeout(startCinematicScroll, 4000);
+
     ['mousedown', 'wheel', 'touchstart', 'keydown'].forEach(evt => {
-        window.addEventListener(evt, stopCinematicScroll, { passive: true, once: true });
+        window.addEventListener(evt, () => stopCinematicScroll(false), { passive: true });
     });
+
 
 
     
