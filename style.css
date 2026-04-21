@@ -478,7 +478,16 @@ section { padding: 120px 0; }
     gap: 15px;
     margin-bottom: 20px;
     word-break: break-word; /* Ensure long emails wrap */
+    text-decoration: none; /* Make it look like a card, not a link */
+    color: inherit;
+    transition: var(--transition);
 }
+
+.contact-item:hover .time-content {
+    border-color: var(--primary);
+    background: rgba(255,255,255,0.05);
+}
+
 
 .contact-item p {
     overflow-wrap: anywhere;
