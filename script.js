@@ -60,27 +60,19 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Stable Reveal Logic
-    const reveal = () => {
-        const sections = document.querySelectorAll('section, .glass-card');
-        sections.forEach(s => {
-            const top = s.getBoundingClientRect().top;
-            if (top < window.innerHeight - 100) {
-                s.style.opacity = '1';
-                s.style.transform = 'translateY(0)';
+    // Stable Intersection Observer for Reveals
+    const observerOptions = { threshold: 0.15 };
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
             }
         });
-    };
-    
-    // Set initial state for reveal
-    document.querySelectorAll('section:not(.hero-section), .glass-card').forEach(s => {
-        s.style.opacity = '0';
-        s.style.transform = 'translateY(20px)';
-        s.style.transition = '0.8s ease-out';
+    }, observerOptions);
+
+    document.querySelectorAll('section, .glass-card').forEach(el => {
+        observer.observe(el);
     });
-    
-    window.addEventListener('scroll', reveal);
-    reveal(); // Run once on load
 });
 
 const mobileToggle = document.getElementById('mobile-toggle');
@@ -98,6 +90,7 @@ if (mobileToggle) {
         lucide.createIcons();
     });
 }
+
 
 document.querySelectorAll('.nav-btn').forEach(link => {
     link.addEventListener('click', () => {
