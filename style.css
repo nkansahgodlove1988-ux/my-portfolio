@@ -477,6 +477,11 @@ section { padding: 120px 0; }
     grid-template-columns: 80px 1fr;
     gap: 15px;
     margin-bottom: 20px;
+    word-break: break-word; /* Ensure long emails wrap */
+}
+
+.contact-item p {
+    overflow-wrap: anywhere;
 }
 
 @media (max-width: 768px) {
@@ -496,14 +501,15 @@ section { padding: 120px 0; }
 @media (max-width: 480px) {
     .container { padding: 0 20px; width: 100%; overflow-x: hidden; }
     .contact-layout { padding: 30px 15px; }
-    .hero-text-side h1 { font-size: 2.8rem; }
-    .hero-text-side h2 { font-size: 1.5rem; }
-    .hero-actions { flex-direction: column; }
-    .btn-primary, .btn-outline { width: 100%; text-align: center; }
+    .hero-text-side h1 { font-size: 2.5rem; }
+    .hero-text-side h2 { font-size: 1.3rem; }
+    .hero-actions { flex-direction: column; width: 100%; }
+    .btn-primary, .btn-outline { width: 100%; text-align: center; display: block; }
     .stat-item h4 { font-size: 2rem; }
-    .glass-card { padding: 30px 20px; width: 100%; }
+    .glass-card { padding: 30px 15px; width: 100%; border-radius: 20px; }
     .project-visuals { grid-template-columns: 1fr; }
     .visual-item { height: 200px; }
     .footer-links { flex-direction: column; gap: 20px; }
     .contact-item { grid-template-columns: 1fr; text-align: center; justify-items: center; }
+    .contact-item .time-content { padding: 15px !important; width: 100%; }
 }
