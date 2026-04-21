@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Stable Intersection Observer for Reveals
-    const observerOptions = { threshold: 0.15 };
+    const observerOptions = { threshold: 0.1 };
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -70,10 +70,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, observerOptions);
 
-    document.querySelectorAll('section, .glass-card').forEach(el => {
+    document.querySelectorAll('.reveal').forEach(el => {
         observer.observe(el);
     });
 });
+
 
 const mobileToggle = document.getElementById('mobile-toggle');
 const navLinks = document.querySelector('.nav-links');

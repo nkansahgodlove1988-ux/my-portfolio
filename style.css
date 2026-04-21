@@ -467,23 +467,26 @@ section { padding: 120px 0; }
     }
 }
 
-/* Base state for Reveal Transition */
-section, .glass-card {
+
+/* Bulletproof Reveal Transitions */
+.reveal {
     opacity: 0;
-    transform: translateY(30px);
-    transition: 1s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateY(20px);
+    transition: opacity 0.8s ease-out, transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
 }
 
-section.visible, .glass-card.visible {
+.reveal.visible {
     opacity: 1 !important;
     transform: translateY(0) !important;
 }
 
-/* Skip transition on landing to show Hero immediately */
-.hero-section {
-    opacity: 1;
-    transform: none;
+/* Ensure Hero is always visible immediately */
+.hero-reveal {
+    opacity: 1 !important;
+    transform: none !important;
 }
+
 
 
 @media (max-width: 1024px) {
