@@ -2,6 +2,32 @@ document.addEventListener('DOMContentLoaded', () => {
     
     lucide.createIcons();
 
+    /* Cinematic Intro Scroll */
+    let isAutoScrolling = false;
+    function startCinematicScroll() {
+        const contactSection = document.getElementById('contact');
+        if (!contactSection) return;
+        isAutoScrolling = true;
+        const scrollSpeed = 0.5; // Very slow and cinematic
+        function scrollStep() {
+            if (!isAutoScrolling) return;
+            window.scrollBy(0, scrollSpeed);
+            const contactTop = contactSection.getBoundingClientRect().top;
+            if (contactTop <= 100 || (window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+                stopCinematicScroll();
+            } else {
+                requestAnimationFrame(scrollStep);
+            }
+        }
+        requestAnimationFrame(scrollStep);
+    }
+    function stopCinematicScroll() { isAutoScrolling = false; }
+    setTimeout(startCinematicScroll, 4000);
+    ['mousedown', 'wheel', 'touchstart', 'keydown'].forEach(evt => {
+        window.addEventListener(evt, stopCinematicScroll, { passive: true, once: true });
+    });
+
+
     
     const scrollProgress = document.querySelector('.scroll-progress');
 
