@@ -60,7 +60,34 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+
+    /* Cinematic Autoscroll Intro (One-time) */
+    let isAutoScrolling = false;
+    const startIntroTour = () => {
+        const contactSection = document.getElementById('contact');
+        if (!contactSection || window.scrollY > 100) return; // Don't start if user already scrolled
+        isAutoScrolling = true;
+        const scrollSpeed = 1.1; 
+        const step = () => {
+            if (!isAutoScrolling) return;
+            window.scrollBy(0, scrollSpeed);
+            if (contactSection.getBoundingClientRect().top <= 100 || (window.innerHeight + window.scrollY) >= document.body.offsetHeight - 5) {
+                isAutoScrolling = false;
+            } else {
+                requestAnimationFrame(step);
+            }
+        };
+        requestAnimationFrame(step);
+    };
+
+    const stopTour = () => { isAutoScrolling = false; };
+    setTimeout(startIntroTour, 4000);
+    ['mousedown', 'wheel', 'touchstart', 'keydown'].forEach(evt => {
+        window.addEventListener(evt, stopTour, { passive: true, once: true });
+    });
+
     // Stable Intersection Observer for Reveals
+
     const observerOptions = { threshold: 0.1 };
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
