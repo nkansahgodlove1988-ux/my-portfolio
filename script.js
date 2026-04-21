@@ -22,31 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     
-    const contactForm = document.getElementById('contact-form');
-    if (contactForm) {
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const btn = contactForm.querySelector('button');
-            const originalText = btn.textContent;
-            
-            btn.innerHTML = 'Sending... <i data-lucide="loader" class="spin"></i>';
-            lucide.createIcons();
-            
-            
-            setTimeout(() => {
-                btn.innerHTML = 'Message Sent! <i data-lucide="check-circle"></i>';
-                btn.style.background = '#22c55e';
-                lucide.createIcons();
-                contactForm.reset();
-                
-                setTimeout(() => {
-                    btn.innerHTML = originalText;
-                    btn.style.background = '';
-                    lucide.createIcons();
-                }, 3000);
-            }, 1500);
-        });
-    }
+
 
     
     const observerOptions = { threshold: 0.1 };
