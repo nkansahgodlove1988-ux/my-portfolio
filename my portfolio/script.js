@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Initialize Lucide icons
+    
     lucide.createIcons();
 
-    // Scroll Progress bar
+    
     const scrollProgress = document.querySelector('.scroll-progress');
 
     window.addEventListener('scroll', () => {
@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Form submission feedback
+    
     const contactForm = document.getElementById('contact-form');
     if (contactForm) {
         contactForm.addEventListener('submit', (e) => {
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.innerHTML = 'Sending... <i data-lucide="loader" class="spin"></i>';
             lucide.createIcons();
             
-            // Simulate sending
+            
             setTimeout(() => {
                 btn.innerHTML = 'Message Sent! <i data-lucide="check-circle"></i>';
                 btn.style.background = '#22c55e';
@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Scroll reveal animations
+    
     const observerOptions = { threshold: 0.1 };
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -88,7 +88,7 @@ function closeTerms(e) {
     document.body.style.overflow = 'auto';
 }
 
-// Mobile Menu Toggle
+
 const mobileToggle = document.getElementById('mobile-toggle');
 const navLinks = document.querySelector('.nav-links');
 
@@ -96,7 +96,7 @@ if (mobileToggle) {
     mobileToggle.addEventListener('click', () => {
         navLinks.classList.toggle('active');
         const icon = mobileToggle.querySelector('i');
-        // Toggle between menu and close icon
+        
         if (navLinks.classList.contains('active')) {
             icon.setAttribute('data-lucide', 'x');
         } else {
@@ -106,7 +106,7 @@ if (mobileToggle) {
     });
 }
 
-// Close menu when clicking a link
+
 document.querySelectorAll('.nav-btn').forEach(link => {
     link.addEventListener('click', () => {
         navLinks.classList.remove('active');
