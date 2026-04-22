@@ -66,19 +66,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const startIntroTour = () => {
         const contactSection = document.getElementById('contact');
         if (!contactSection) return;
-        
+
         window.scrollTo({ top: 0, behavior: 'instant' });
         isAutoScrolling = true;
-        const scrollSpeed = 1.25; 
-        
+        const scrollSpeed = 1.25;
+
         const step = () => {
             if (!isAutoScrolling) return;
             window.scrollBy(0, scrollSpeed);
-            
+
+            // Use scrollHeight (accurate on ALL mobile browsers)
+            const totalHeight = document.documentElement.scrollHeight;
+            const scrolledTo = window.scrollY + window.innerHeight;
             const contactTop = contactSection.getBoundingClientRect().top;
-            const isAtBottom = (window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 80);
-            
-            if (contactTop <= 60 || isAtBottom) {
+
+            // Stop only when contact section fully in view OR true page bottom
+            if (contactTop <= 0 || scrolledTo >= totalHeight - 10) {
                 isAutoScrolling = false;
             } else {
                 requestAnimationFrame(step);
@@ -86,13 +89,13 @@ document.addEventListener('DOMContentLoaded', () => {
         };
         requestAnimationFrame(step);
 
-        // ONLY start listening for stops AFTER the scroll has begun
+        // Delay so load events don't accidentally fire the stop
         setTimeout(() => {
             const stopTour = () => { isAutoScrolling = false; };
             ['mousedown', 'wheel', 'touchstart', 'keydown'].forEach(evt => {
                 window.addEventListener(evt, stopTour, { passive: true, once: true });
             });
-        }, 100);
+        }, 500);
     };
 
     setTimeout(startIntroTour, 4000);
