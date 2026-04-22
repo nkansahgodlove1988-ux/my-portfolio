@@ -67,29 +67,32 @@ document.addEventListener('DOMContentLoaded', () => {
         const contactSection = document.getElementById('contact');
         if (!contactSection) return;
         
-        // Force start from top for mobile reliability
-        if (window.scrollY < 200) {
-            window.scrollTo(0, 0);
-            isAutoScrolling = true;
-            const scrollSpeed = 1.1; 
-            const step = () => {
-                if (!isAutoScrolling) return;
-                window.scrollBy(0, scrollSpeed);
-                if (contactSection.getBoundingClientRect().top <= 100 || (window.innerHeight + window.scrollY) >= document.body.offsetHeight - 5) {
-                    isAutoScrolling = false;
-                } else {
-                    requestAnimationFrame(step);
-                }
-            };
-            requestAnimationFrame(step);
-        }
+        window.scrollTo({ top: 0, behavior: 'instant' });
+        isAutoScrolling = true;
+        const scrollSpeed = 1.25; 
+        
+        const step = () => {
+            if (!isAutoScrolling) return;
+            window.scrollBy(0, scrollSpeed);
+            
+            const contactTop = contactSection.getBoundingClientRect().top;
+            const isAtBottom = (window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 50);
+            
+            if (contactTop <= 50 || isAtBottom) {
+                isAutoScrolling = false;
+            } else {
+                requestAnimationFrame(step);
+            }
+        };
+        requestAnimationFrame(step);
     };
 
     const stopTour = () => { isAutoScrolling = false; };
     setTimeout(startIntroTour, 4000);
-    ['mousedown', 'wheel', 'touchstart', 'keydown'].forEach(evt => {
+    ['mousedown', 'wheel', 'touchstart', 'touchmove', 'keydown'].forEach(evt => {
         window.addEventListener(evt, stopTour, { passive: true, once: true });
     });
+
 
     // Stable Intersection Observer for Reveals
     const observerOptions = { threshold: 0.05 };
