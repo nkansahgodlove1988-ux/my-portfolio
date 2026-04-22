@@ -76,22 +76,27 @@ document.addEventListener('DOMContentLoaded', () => {
             window.scrollBy(0, scrollSpeed);
             
             const contactTop = contactSection.getBoundingClientRect().top;
-            const isAtBottom = (window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 50);
+            const isAtBottom = (window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 80);
             
-            if (contactTop <= 50 || isAtBottom) {
+            if (contactTop <= 60 || isAtBottom) {
                 isAutoScrolling = false;
             } else {
                 requestAnimationFrame(step);
             }
         };
         requestAnimationFrame(step);
+
+        // ONLY start listening for stops AFTER the scroll has begun
+        setTimeout(() => {
+            const stopTour = () => { isAutoScrolling = false; };
+            ['mousedown', 'wheel', 'touchstart', 'keydown'].forEach(evt => {
+                window.addEventListener(evt, stopTour, { passive: true, once: true });
+            });
+        }, 100);
     };
 
-    const stopTour = () => { isAutoScrolling = false; };
     setTimeout(startIntroTour, 4000);
-    ['mousedown', 'wheel', 'touchstart', 'touchmove', 'keydown'].forEach(evt => {
-        window.addEventListener(evt, stopTour, { passive: true, once: true });
-    });
+
 
 
     // Stable Intersection Observer for Reveals
