@@ -65,19 +65,24 @@ document.addEventListener('DOMContentLoaded', () => {
     let isAutoScrolling = false;
     const startIntroTour = () => {
         const contactSection = document.getElementById('contact');
-        if (!contactSection || window.scrollY > 100) return; // Don't start if user already scrolled
-        isAutoScrolling = true;
-        const scrollSpeed = 1.1; 
-        const step = () => {
-            if (!isAutoScrolling) return;
-            window.scrollBy(0, scrollSpeed);
-            if (contactSection.getBoundingClientRect().top <= 100 || (window.innerHeight + window.scrollY) >= document.body.offsetHeight - 5) {
-                isAutoScrolling = false;
-            } else {
-                requestAnimationFrame(step);
-            }
-        };
-        requestAnimationFrame(step);
+        if (!contactSection) return;
+        
+        // Force start from top for mobile reliability
+        if (window.scrollY < 200) {
+            window.scrollTo(0, 0);
+            isAutoScrolling = true;
+            const scrollSpeed = 1.1; 
+            const step = () => {
+                if (!isAutoScrolling) return;
+                window.scrollBy(0, scrollSpeed);
+                if (contactSection.getBoundingClientRect().top <= 100 || (window.innerHeight + window.scrollY) >= document.body.offsetHeight - 5) {
+                    isAutoScrolling = false;
+                } else {
+                    requestAnimationFrame(step);
+                }
+            };
+            requestAnimationFrame(step);
+        }
     };
 
     const stopTour = () => { isAutoScrolling = false; };
@@ -87,8 +92,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Stable Intersection Observer for Reveals
+    const observerOptions = { threshold: 0.05 };
 
-    const observerOptions = { threshold: 0.1 };
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
