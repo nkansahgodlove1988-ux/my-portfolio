@@ -468,12 +468,15 @@ section { padding: 120px 0; }
 }
 
 
-/* Bulletproof Reveal Transitions */
+/* Reveal Transitions - initial state set by JS for reliability */
 .reveal {
-    opacity: 0;
-    transform: translateY(20px);
     transition: opacity 0.8s ease-out, transform 1s cubic-bezier(0.16, 1, 0.3, 1);
     will-change: opacity, transform;
+}
+
+.reveal.hidden {
+    opacity: 0;
+    transform: translateY(20px);
 }
 
 .reveal.visible {
@@ -481,8 +484,8 @@ section { padding: 120px 0; }
     transform: translateY(0) !important;
 }
 
-/* Ensure Hero is always visible immediately */
-.hero-reveal {
+/* Hero always visible */
+.hero-section {
     opacity: 1 !important;
     transform: none !important;
 }

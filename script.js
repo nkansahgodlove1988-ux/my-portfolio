@@ -102,21 +102,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-    // Stable Intersection Observer for Reveals
-    const observerOptions = { threshold: 0.05 };
+    // Reveal Transitions - applied via JS so mobile never gets a blank page
+    const revealEls = document.querySelectorAll('section:not(.hero-section), .glass-card');
+    
+    // Apply hidden state from JS (not CSS) to avoid mobile blank-page bug
+    revealEls.forEach(el => el.classList.add('hidden'));
 
+    const revealElement = (el) => {
+        el.classList.remove('hidden');
+        el.classList.add('visible');
+    };
+
+    // Primary: IntersectionObserver
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
+                revealElement(entry.target);
+                observer.unobserve(entry.target);
             }
         });
-    }, observerOptions);
+    }, { threshold: 0.05 });
 
-    document.querySelectorAll('.reveal').forEach(el => {
-        observer.observe(el);
-    });
+    revealEls.forEach(el => observer.observe(el));
+
+    // Fallback: force-show everything after 2s in case observer fails on mobile
+    setTimeout(() => {
+        revealEls.forEach(el => revealElement(el));
+    }, 2000);
 });
+
 
 
 const mobileToggle = document.getElementById('mobile-toggle');
